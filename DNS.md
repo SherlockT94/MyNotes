@@ -50,3 +50,30 @@ ISP will also using a technology "Transparent DNS proxies" to forces you to use 
     DNSSEC - Domain Name System Security Extensions - Based on Public Key Crypto
 
 [DNSSEC](https://blog.cloudflare.com/dnssec-an-introduction/) - Great article explain DNS and ATTACKS aim to DNS.
+## DNS Enumeration
+
+    DNS Enumeration will give you info about the target Enterprise network structure, including name server, sub-domains, mail server, IPs and so on.
+
+### Some tools & Commands
+1. host <domain_name> -> give ip address for the domain_name, ipv4/6, mail server...
+    * host -t ns <domain_name> -> return the name server of the domain
+    * host -t mx <domain_name> -> return the mail server of the domain
+    * host -l <domain_name> <name_server> -> list all host in a domain stored in a name server
+2. nslookup <domain_name> - check current name server(may be the router), address(such as 192.168.3.1#53)
+    * nslookup -> set type=ns -> <domain_name>
+3. dig <domain_name> 
+    * dig -h -> help info
+    * -t <type> : -t ns
+    * dig <domain_name> AAAA -> check ipv6 address
+    * dig <domain_name> CNAME -> check domain alias
+    * dig <domain_name> -t ns +short -> just output important info
+### Zone Transfer
+
+    Zone Transfer -> using axfr to make a name server returns all records for a particular domain.
+    
+* within records, maybe you will find potential internal IP address & private subdomians.
+* dig axfr <domain_name> @<name_server> e.g. dig axfr zonetransfer.me @nsztm1.digi.ninja.
+* Automatic tool: dnsrecon -d zonetransfer.me -t axfr
+* [How to format a zone file](https://help.dyn.com/how-to-format-a-zone-file/)
+* [DNS Zones & zone files explained](http://www.steves-internet-guide.com/dns-zones-explained/)
+
