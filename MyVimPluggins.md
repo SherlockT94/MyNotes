@@ -1,7 +1,50 @@
 # Vim Pluggins & Shortcut
+## Basic
+### Keys
+| Key           | Results                                                   |
+|---------------|-----------------------------------------------------------|
+| w             | go to the begin of next word                              |
+| e             | go to the end of nearest word                             |
+| b             | back to the begin of last word                            |
+| W             | go to the begin of next WORD                              |
+| E             | go to the end of nearest WORD                             |
+| B             | back to the begin of last WORD                            |
+| {             | go to the prev paragraph                                  |
+| }             | go to the next paragraph                                  |
+| cw            | delete a word and insert                                  |
+| cc            | delete a l and insert                                     |
+| C             | delete from current postion to end of the line            |
+| dw            | delete a word                                             |
+| C-r           | redo                                                      |
+| :h <key_word> | help document key_word(<C-D> get a list contain key_word) |
+
+* word: split by space, tab, \n & string contain a-z, A-Z,number,_
+* WORD: split by space, string contain any non-space character
+### Buffer
+* :ls -> ls all buffer
+* ![](https://www.rosipov.com/images/posts/vim-list-buffers.png)
+    * 1 -> buffer order
+    * % -> buffer in current window
+    * a -> buffer is activated(loaded and visable) 
+* :b 1 -> jump to buffer 1 
+* :bd -> delete a buffer(must save before)
+## Some Tricks
+* :echo $MYVIMRC - show .vimrc path
+* set directory=$HOME/.vim/swap//, set directory=%USERDATA%/.vim/swap\\ -> set swap file directory
+* set noswapfile
 ## Visual mode
 * viw -> select a word
 * C-v, select head column, I(uppercase), #, ESC -> comment multipul lines
+* select words and replace -> using s/// instead of %s///g
+## Split Window
+* :sp -> split horizontal
+* :vs -> split vertical
+* <C-w> + c -> close focused window
+* :resize/res =/- 5 -> reszie windows
+* :veritcal/vert resize/res =/- 5 -> reszie windows
+* :vs|:terminal -> open a shell in vim
+* help split
+* [DistroTube - vim split](https://www.youtube.com/watch?v=Zir28KFCSQw&t=288)
 # Plugins
 ## easymotion
 | Shortcut | Explanation                        |

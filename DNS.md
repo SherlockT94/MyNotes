@@ -61,7 +61,7 @@ ISP will also using a technology "Transparent DNS proxies" to forces you to use 
     * host -l <domain_name> <name_server> -> list all host in a domain stored in a name server
 2. nslookup <domain_name> - check current name server(may be the router), address(such as 192.168.3.1#53)
     * nslookup -> set type=ns -> <domain_name>
-3. dig <domain_name> 
+3. dig <domain_name>
     * dig -h -> help info
     * -t <type> : -t ns
     * dig <domain_name> AAAA -> check ipv6 address
