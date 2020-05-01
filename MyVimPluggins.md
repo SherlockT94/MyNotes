@@ -11,13 +11,17 @@
 | B             | back to the begin of last WORD                            |
 | {             | go to the prev paragraph                                  |
 | }             | go to the next paragraph                                  |
+| H             | go to the top of window                                   |
+| L             | go to the bottom of window                                |
 | cw            | delete a word and insert                                  |
 | cc            | delete a l and insert                                     |
 | C             | delete from current postion to end of the line            |
 | dw            | delete a word                                             |
 | C-r           | redo                                                      |
 | :h <key_word> | help document key_word(<C-D> get a list contain key_word) |
-
+| za            | toggle fold                                               |
+| zR            | open all fold                                             |
+| zM            | close all fold                                            |
 * word: split by space, tab, \n & string contain a-z, A-Z,number,_
 * WORD: split by space, string contain any non-space character
 ### Buffer
@@ -28,14 +32,63 @@
     * a -> buffer is activated(loaded and visable) 
 * :b 1 -> jump to buffer 1 
 * :bd -> delete a buffer(must save before)
+### Tabs
+| Key                      | Results                         |
+|--------------------------|---------------------------------|
+| tabnew <file_name>       | open a new tab                  |
+| :e <file_name>(in a tab) | open a file                     |
+| gt(:tabnext)             | go to the next tab              |
+| gT(:tabprevious)         | go to the next tab              |
+| :tabclose                | close current tab               |
+| :tabmove N               | move current tab to N next tabs |
+### vimgrep
+| Key                      | Results                           |
+|--------------------------|-----------------------------------|
+| vimgrep <pattern> <path> | vimgrep animal \*\*/\*.py         |
+| cn                       | next match                        |
+| cp                       | previous match                    |
+| copen                    | open a quickfix to list all match |
+* \**\** -> Recurive search
+* *.py -> search all python file
+### Text-Objects
+Operate text in pair characters: including ``, '', "", (), [], {}, <>
+| verb | number | adj | noun |
+|------|--------|-----|------|
+| d    | -      | i   | )    |
+| c    | 2      | a   | w    |
+* w - word
+* s - sentence
+* p - paragraph
+* t - html/xml tag
+* :help text-objects for more details
+### Register
+There are ten types of registers:
+1. The unnamed register ""
+2. 10 numbered registers "0 to "9
+3. The small delete register "-
+4. 26 named registers "a to "z or "A to "Z
+5. Three read-only registers ":, "., "%
+    * : -> last execute command -> @:
+    * . -> last insert text
+    * % -> current file name
+7. Alternate buffer register "#
+8. The expression register "=
+9. The selection registers "* and "+
+10. The black hole register "_
+11. Last search pattern register "/
 ## Some Tricks
 * :echo $MYVIMRC - show .vimrc path
 * set directory=$HOME/.vim/swap//, set directory=%USERDATA%/.vim/swap\\ -> set swap file directory
-* set noswapfile
+* set noswapfile -> no swap file
+* plugins
+    * vim --startuptime startuptime.log -> log plugin start time for analysis
+* :help cmdline-editing
+* :help vreplace-mode
 ## Visual mode
 * viw -> select a word
 * C-v, select head column, I(uppercase), #, ESC -> comment multipul lines
 * select words and replace -> using s/// instead of %s///g
+* o -> jump over selected text
 ## Split Window
 * :sp -> split horizontal
 * :vs -> split vertical
