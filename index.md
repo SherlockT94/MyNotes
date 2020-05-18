@@ -10,4 +10,4 @@
 ## VIM Tricks 
     * [My Vim Pluggins](MyVimPluggins): My vim pluggins & key bindings.
 ## Capture the Flags
-    * CTFWriteup: Collection of verious CTF writeups.
+    * [ASIS_CTF_Quals_2019_writeup](ASIS_CTF_Quals_2019_writeup): Collection of ASIS_CTF_Quals_2019 writeups.
