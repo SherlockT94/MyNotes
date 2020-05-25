@@ -1,6 +1,8 @@
 # Linux
 ## Basic Idea
-
+1. Change dir to other user may find Interesting things.
+2. go to /proc/<pid>/ to find something
+    * maybe check cmdline to find what command is running & may find plaintext password
 ## Something I find about /proc directory
 
 ## Reference
@@ -45,7 +47,7 @@
 
 ## Tools
 * **file:** The file command determines the file type of a file. It reports the file type in human readable format (e.g. 'ASCII text') or MIME type (e.g. 'text/plain; charset=us-ascii'). As filenames in UNIX can be entirely independent of file type file can be a useful command to determine how to view or work with a file.
-* **Strings:** finds and prints text strings embedded in all files strings filename. e.g. `strings filename | awk 'length($0)>15' | sort -u`
+* **Strings:** finds and prints text strings embedded in all files strings filename. e.g. ``strings filename | awk 'length($0)>15' | sort -u``
 * **Hexeditor:** A hex editor, also called a binary file editor or byteeditor, is a type of program that allows a user to view and edit the raw and exact contents of files, that is, at the byte level. **Change image size!!!!!!**
 * **binwalk:** Binwalk is a fast, easy to use tool for analyzing, reverse engineering, and extracting firmware images. Binwalk is a great tool for extracting hidden files from other files as well.
 * **xxd:** is a Linux command that creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form. Like uuencode(1) and uudecode(1) it allows the transmission of binary data in a “mail-safe” ASCII representation, but has the advantage of decoding to standard output.
@@ -55,14 +57,22 @@
 * **PCRT (PNG Check & Repair Tool)**: PCRT (PNG Check & Repair Tool) is a tool to help check if PNG image correct and try to auto fix the error. It's cross-platform, which can run on Windows, Linux and Mac OS.
 * **exiftool:** Check out metadata of media files.
 * **zsteg:** Detect stegano-hidden data in PNG & BMP, which could be used to solve **LSB** hide.
+* ***Imagemagick*:** A comprehensive tool to manipulate images. **Split GIF files!!!** [ICECTF-John Hammond](https://medium.com/@johnhammond010/icectf-2018-writeups-32df8e53facd)
+    * `convert foo.git %02d.png`
+    * `ls *.png | while read filename; while do covert $filename -transparent white $filename; done` 
+    * `ls *.png |while read line; do convert 00000.png $line -gravity center -composite 00000.png; done`
 
 ## Reference
 * [Steganography Tutorial: Least Significant Bit (LSB)](https://www.boiteaklou.fr/Steganography-Least-Significant-Bit.html)
 * [CTF Tidbits: Part 1 — Steganography](https://medium.com/@FourOctets/ctf-tidbits-part-1-steganography-ea76cc526b40)
 * [File signature List](https://www.garykessler.net/library/file_sigs.html)
+* [Imagemagick](http://imagemagick.org/script/convert.php)
 
+# Zip/Tar/7z
 
-# Zip
+    ls * | grep "Pattern" | while read line; do tar xf $line; done
+    grep -v "Pattern" -> find something exclude <Pattern>
+    ls |  grep "Pattern" | grep -v "Pattern" | while read line; do diff -f comp_1 $line; done -> recursive compare files[Juniors CTF 2016](https://www.youtube.com/watch?v=32JO9Tsj_ZI)
 
 ## Tools
 * **fcrackzip:** A tool to crack the zip file.[offical website](http://oldhome.schmorp.de/marc/fcrackzip.html)
