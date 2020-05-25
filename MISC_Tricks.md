@@ -1,7 +1,38 @@
 # Linux
+## Basic Idea
+
+## Something I find about /proc directory
+
+## Reference
+### Tools & git repo
 * [grep - search pattern](https://caspar.bgsu.edu/~courses/Stats/Labs/Handouts/grepsearch.htm)
+* [jq](https://stedolan.github.io/jq/): a command line json processor(see hackthebox - Luke).
+* [PEASS - Privilege Escalation Awesome Scripts SUITE](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite): privilege escalation tools for Windows and Linux/Unix.
+### Articles 
+* [Exploring /proc File System in Linux](https://www.tecmint.com/exploring-proc-file-system-in-linux/)
+* [Discover the possibilities of the /proc directory](https://www.linux.com/news/discover-possibilities-proc-directory/)
+
 # Windows
+
+
+
 # Steganography
+## Basic idea
+    Using [stego-toolkits](https://github.com/DominicBreuker/stego-toolkit): A docker images contain a lot of steganography tools.
+    
+    1. Check file type.
+    2. Strings -a file to list printable chars.(may find hints, binary string or base64 string)
+    3. try exiftool to extract header info.
+    4. try pngcheck/PCRT to check the png file and repair.
+    5. if there are no files embeded in the image or audit.
+        1. try stegsolv/steghide to find hidden info
+        2. try hexeditor to change the wight/height of the image
+        3. try LSB solver
+    6. if there are files embeded in the image.
+        1. try binwalk/foremost to extract file.
+        2. if images, try step. 3
+    7. try Nice Color(info hiden in the pixel value) see the [CTF Tidbits: Part 1 — Steganography](https://medium.com/@FourOctets/ctf-tidbits-part-1-steganography-ea76cc526b40)
+
 ## Least Significant Bit (LSB)
 
     * One pixel contain 3 channels and 1 Byte per channel(0 - 255)
@@ -12,14 +43,7 @@
     * **NOTE:** Make sure to hide your message inside a PNG file and not a JPEG or its lossy compression algorithm will overwrite your modifications!
     * we could use the zsteg to extract hide message.
 
-## Reference
-* [Steganography Tutorial: Least Significant Bit (LSB)](https://www.boiteaklou.fr/Steganography-Least-Significant-Bit.html)
-* [CTF Tidbits: Part 1 — Steganography](https://medium.com/@FourOctets/ctf-tidbits-part-1-steganography-ea76cc526b40)
-* [File signature List](https://www.garykessler.net/library/file_sigs.html)
-
-# Zip
-
-# Tools
+## Tools
 * **file:** The file command determines the file type of a file. It reports the file type in human readable format (e.g. 'ASCII text') or MIME type (e.g. 'text/plain; charset=us-ascii'). As filenames in UNIX can be entirely independent of file type file can be a useful command to determine how to view or work with a file.
 * **Strings:** finds and prints text strings embedded in all files strings filename. e.g. `strings filename | awk 'length($0)>15' | sort -u`
 * **Hexeditor:** A hex editor, also called a binary file editor or byteeditor, is a type of program that allows a user to view and edit the raw and exact contents of files, that is, at the byte level. **Change image size!!!!!!**
@@ -27,6 +51,18 @@
 * **xxd:** is a Linux command that creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form. Like uuencode(1) and uudecode(1) it allows the transmission of binary data in a “mail-safe” ASCII representation, but has the advantage of decoding to standard output.
 * **stegsolv:** A great GUI tool that covers a wide range of analysis, some of which is covered by the other tools mentioned above and a lot more including color profiles, planes, Color maps, strings.
 * **Sonic visualizer:** Sonic Visualizer is a great tool to find hidden messages in audio files and a great way to work with audio files in general.
-* **pngcheck**: Check for any corruption or anomalous sections pngcheck -v PNGs can contain a variety of data ‘chunks’ that are optional (non-critical) as far as rendering is concerned.
+* **pngcheck:** Check for any corruption or anomalous sections pngcheck -v PNGs can contain a variety of data ‘chunks’ that are optional (non-critical) as far as rendering is concerned.
 * **PCRT (PNG Check & Repair Tool)**: PCRT (PNG Check & Repair Tool) is a tool to help check if PNG image correct and try to auto fix the error. It's cross-platform, which can run on Windows, Linux and Mac OS.
 * **exiftool:** Check out metadata of media files.
+* **zsteg:** Detect stegano-hidden data in PNG & BMP, which could be used to solve **LSB** hide.
+
+## Reference
+* [Steganography Tutorial: Least Significant Bit (LSB)](https://www.boiteaklou.fr/Steganography-Least-Significant-Bit.html)
+* [CTF Tidbits: Part 1 — Steganography](https://medium.com/@FourOctets/ctf-tidbits-part-1-steganography-ea76cc526b40)
+* [File signature List](https://www.garykessler.net/library/file_sigs.html)
+
+
+# Zip
+
+## Tools
+* **fcrackzip:** A tool to crack the zip file.[offical website](http://oldhome.schmorp.de/marc/fcrackzip.html)
