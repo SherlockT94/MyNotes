@@ -36,14 +36,13 @@
     7. try Nice Color(info hiden in the pixel value) see the [CTF Tidbits: Part 1 — Steganography](https://medium.com/@FourOctets/ctf-tidbits-part-1-steganography-ea76cc526b40)
 
 ## Least Significant Bit (LSB)
-
-    * One pixel contain 3 channels and 1 Byte per channel(0 - 255)
-    * ![](https://www.boiteaklou.fr/assets/2018-08-12/byte_diagram.jpg)
-    * The first bit on the left is the “heaviest” one since it’s the one that has the biggest influence on the value of the byte. Its weight is 128.
-    * look at the bit on the very right. Its weight is 1 and it has a very minor impact on the value of the byte. In a way, this bit is the least significant bit of this byte. **Basically, unvisable!!!**
-    * we can modify **3 bits per pixel(one bit per channel)** without it is noticeable.
-    * **NOTE:** Make sure to hide your message inside a PNG file and not a JPEG or its lossy compression algorithm will overwrite your modifications!
-    * we could use the zsteg to extract hide message.
+* One pixel contain 3 channels and 1 Byte per channel(0 - 255)
+* ![](https://www.boiteaklou.fr/assets/2018-08-12/byte_diagram.jpg)
+* The first bit on the left is the “heaviest” one since it’s the one that has the biggest influence on the value of the byte. Its weight is 128.
+* look at the bit on the very right. Its weight is 1 and it has a very minor impact on the value of the byte. In a way, this bit is the least significant bit of this byte. **Basically, unvisable!!!**
+* we can modify **3 bits per pixel(one bit per channel)** without it is noticeable.
+* **NOTE:** Make sure to hide your message inside a PNG file and not a JPEG or its lossy compression algorithm will overwrite your modifications!
+* we could use the zsteg to extract hide message.
 
 ## Tools
 * **file:** The file command determines the file type of a file. It reports the file type in human readable format (e.g. 'ASCII text') or MIME type (e.g. 'text/plain; charset=us-ascii'). As filenames in UNIX can be entirely independent of file type file can be a useful command to determine how to view or work with a file.
@@ -57,7 +56,8 @@
 * **PCRT (PNG Check & Repair Tool)**: PCRT (PNG Check & Repair Tool) is a tool to help check if PNG image correct and try to auto fix the error. It's cross-platform, which can run on Windows, Linux and Mac OS.
 * **exiftool:** Check out metadata of media files.
 * **zsteg:** Detect stegano-hidden data in PNG & BMP, which could be used to solve **LSB** hide.
-* ***Imagemagick*:** A comprehensive tool to manipulate images. **Split GIF files!!!** [ICECTF-John Hammond](https://medium.com/@johnhammond010/icectf-2018-writeups-32df8e53facd)
+* **Imagemagick:** A comprehensive tool to manipulate images. **Split GIF files!!!** [ICECTF-John Hammond](https://medium.com/@johnhammond010/icectf-2018-writeups-32df8e53facd)
+* **pngcsum:** A tool to fix png check sum.
     * `convert foo.git %02d.png`
     * `ls *.png | while read filename; while do covert $filename -transparent white $filename; done` 
     * `ls *.png |while read line; do convert 00000.png $line -gravity center -composite 00000.png; done`
@@ -68,11 +68,93 @@
 * [File signature List](https://www.garykessler.net/library/file_sigs.html)
 * [Imagemagick](http://imagemagick.org/script/convert.php)
 
-# Zip/Tar/7z
+# About Zip/Tar/7z/bzip file
 
+    Useful_Tools: unzip/bunzip2/gunzip/7z
+    
     ls * | grep "Pattern" | while read line; do tar xf $line; done
     grep -v "Pattern" -> find something exclude <Pattern>
-    ls |  grep "Pattern" | grep -v "Pattern" | while read line; do diff -f comp_1 $line; done -> recursive compare files[Juniors CTF 2016](https://www.youtube.com/watch?v=32JO9Tsj_ZI)
+    ls |  grep "Pattern" | grep -v "Pattern" | while read line; do diff -f comp_1 $line; done -> recursive compare files[Juniors CTF 2016](https://www.youtube.com/watch?v=32JO9Tsj_ZI) -> using diff to compare 2 files.
 
+## Some Ideas 
+
+    1. Strings zip
+    2. Bruteforce - create dictionary(crunch/python)
+    3. fake encryption - change flag to 00
+    4. dictionary attack
+    5. plaintext attack - using ARCHPR
+    6. crc32 collision - check reference below
+    7. fix zip header - sometimes the zip header will be modified. we should fix it first
+        *   
+
+## rabbit hole script 
+[MITRE CTF 2019 - JOURNEY TO THE CENTER OF THE FILE](https://www.youtube.com/watch?v=wRSwagjvSqU):  ZIP Archive Matryoshka Doll
+```shell
+#!/bin/bash
+
+filename=$1
+
+rm -r tmp
+mkdir tmp
+cp tmp $filename tmp
+
+cd tmp
+
+while [ 1 ]
+do
+    file $filename
+    
+    file $filename | grep "bzip2"
+    if [[ "${?} -eq "0" ]]
+    then
+        echo "This is a Bzip!"
+        mv $filename $filename.bz2
+        bunzip2 $filename.bz2
+        filename=$(ls *)
+    fi
+    
+    file $filename | grep "Zip"
+    if [[ "${?} -eq "0" ]]
+    then
+        echo "This is a Zip!"
+        mv $filename $filename.zip
+        unzip $filename.zip
+        rm $filename.zip
+        filename=$(ls *)
+    fi
+    
+    file $filename | grep "ASCII"
+    if [[ "${?} -eq "0" ]]
+    then
+        echo "This is a ASCII!"
+        tail -c 100 $filename
+        base64 -d $filename > $filename.new
+        rm $filename
+        filename=$(ls *)
+    fi
+    
+    file $filename | grep "init="
+    if [[ "${?} -eq "0" ]]
+    then
+        echo "This is a base64!"
+        base64 -d $filename > $filename.new
+        rm $filename
+        filename=$(ls *)
+    fi
+    
+    file $filename | grep "gzip"
+    if [[ "${?} -eq "0" ]]
+    then
+        echo "This is a gzip!"
+        mv $filename $filename.gz
+        gunzip $filename.gz
+        filename=$(ls *)
+    fi
+done
+```
 ## Tools
 * **fcrackzip:** A tool to crack the zip file.[offical website](http://oldhome.schmorp.de/marc/fcrackzip.html)
+* **Archpr:** A tool to attack zip, including plaintext attack 
+ 
+## Reference
+* [CTF_zip_Tricks](https://www.anquanke.com/post/id/86211)
