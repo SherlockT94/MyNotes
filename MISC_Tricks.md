@@ -3,10 +3,25 @@
 1. Change dir to other user may find Interesting things.
 2. go to /proc/<pid>/ to find something
     * maybe check cmdline to find what command is running & may find plaintext password
+    * go to /proc/<PID>/ to list files and directories
+     
+    **Path worth to pay attention**
+    cmdline – command line of the process
+    environ – environmental variables
+    fd – file descriptors
+    limits – contains information about the limits of the process
+    mounts – related information
+    You will also notice a number of links in the numbered directory:
+
+    cwd – a link to the current working directory of the process
+    exe – link to the executable of the process
+    root – link to the work directory of the process 
+    
 3. check /etc/passwd to find how many user in the host & other info like shell they used
 ## Something I find about /proc directory
 
 ## Reference
+[Exploring /proc File System in Linux](https://www.tecmint.com/exploring-proc-file-system-in-linux/): Basic about /proc path
 ### Tools & git repo
 * [grep - search pattern](https://caspar.bgsu.edu/~courses/Stats/Labs/Handouts/grepsearch.htm)
 * [jq](https://stedolan.github.io/jq/): a command line json processor(see hackthebox - Luke).
