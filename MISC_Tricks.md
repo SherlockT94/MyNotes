@@ -3,6 +3,7 @@
 1. Change dir to other user may find Interesting things.
 2. go to /proc/<pid>/ to find something
     * maybe check cmdline to find what command is running & may find plaintext password
+3. check /etc/passwd to find how many user in the host & other info like shell they used
 ## Something I find about /proc directory
 
 ## Reference
@@ -57,10 +58,10 @@
 * **exiftool:** Check out metadata of media files.
 * **zsteg:** Detect stegano-hidden data in PNG & BMP, which could be used to solve **LSB** hide.
 * **Imagemagick:** A comprehensive tool to manipulate images. **Split GIF files!!!** [ICECTF-John Hammond](https://medium.com/@johnhammond010/icectf-2018-writeups-32df8e53facd)
-* **pngcsum:** A tool to fix png check sum.
     * `convert foo.git %02d.png`
     * `ls *.png | while read filename; while do covert $filename -transparent white $filename; done` 
     * `ls *.png |while read line; do convert 00000.png $line -gravity center -composite 00000.png; done`
+* **pngcsum:** A tool to fix png check sum.
 
 ## Reference
 * [Steganography Tutorial: Least Significant Bit (LSB)](https://www.boiteaklou.fr/Steganography-Least-Significant-Bit.html)
@@ -85,7 +86,7 @@
     5. plaintext attack - using ARCHPR
     6. crc32 collision - check reference below
     7. fix zip header - sometimes the zip header will be modified. we should fix it first
-        *   
+        * [RADARCTF2019-Misc(+Programming) Writeup](https://medium.com/hackstreetboys/radarctf2019-misc-programming-writeup-7201fbf4d7c29)
 
 ## rabbit hole script 
 [MITRE CTF 2019 - JOURNEY TO THE CENTER OF THE FILE](https://www.youtube.com/watch?v=wRSwagjvSqU):  ZIP Archive Matryoshka Doll
