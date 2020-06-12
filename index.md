@@ -11,7 +11,7 @@
     * [My Vim Pluggins](MyVimPluggins): My vim pluggins & key bindings.
 ## CTF_Bunker
     * Web_Tricks: Anything I learned about CTF web.
-    * PWN_Tricks: Anything I learned about CTF pwn.
+    * [PWN_Tricks](PWN_Tricks): Anything I learned about CTF pwn.
     * [MISC_Tricks](MISC_Tricks): Anything I learned about CTF misc.
 ## Capture the Flags Writeup collection
     * [ASIS_CTF_Quals_2019_writeup](ASIS_CTF_Quals_2019_writeup): Collection of ASIS_CTF_Quals_2019 writeups.
